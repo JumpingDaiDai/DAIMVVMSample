@@ -8,13 +8,15 @@ class MenuViewModel {
         }
     }
     
-    var dataChange: (()->())?
+    var dataChange: (() -> Void)?
+    
+    var cellPressed: ((CellViewModel) -> Void)?
     
     var apiWebService = ApiWebService()
     
     func loadData() {
         
-        viewModels = [InfoCellViewModel]()
+        var viewModels = [CellViewModel]()
         
         let menuData = apiWebService.getData()
         
@@ -23,7 +25,18 @@ class MenuViewModel {
         
         // Info Cell View Model
         for infoModel in menuData.infoListModel.infoList {
-            viewModels.append(InfoCellViewModel(infoModel: infoModel))
+            
+            let infoViewModel = InfoCellViewModel(infoModel: infoModel)
+            infoViewModel.cellPressed = { [weak self] in
+                
+                self?.cellPressed?(infoViewModel)
+            }
+            viewModels.append(infoViewModel)
         }
+        
+        // Detail Button View Model
+        viewModels.append(DetailButtonCellViewModel())
+        
+        self.viewModels = viewModels
     }
 }

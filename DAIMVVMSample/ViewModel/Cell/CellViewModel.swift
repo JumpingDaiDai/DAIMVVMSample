@@ -10,9 +10,21 @@ import Foundation
 
 protocol CellViewModel {}
 
-class InfoCellViewModel: CellViewModel {
+protocol CellViewModelPressible {
+    var cellPressed:(() -> Void)? { get set }
+}
+
+class InfoCellViewModel: CellViewModel, CellViewModelPressible {
     
-    var infoModel: InfoModel?
+    var infoModel: InfoModel? {
+        didSet {
+            dataChange?()
+        }
+    }
+    
+    var dataChange: (() -> Void)?
+    
+    var cellPressed: (() -> Void)?
     
     var text: String {
         (infoModel?.title ?? "") + "："
@@ -38,4 +50,8 @@ class ImageCellViewModel: CellViewModel {
     init(imageModel: ImageModel) {
         self.imageModel = imageModel
     }
+}
+
+class DetailButtonCellViewModel: CellViewModel {
+    
 }

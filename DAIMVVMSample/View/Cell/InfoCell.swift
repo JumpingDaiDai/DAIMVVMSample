@@ -10,6 +10,8 @@ import UIKit
 
 class InfoCell : UITableViewCell, CellConfigurable {
     
+//    var viewModel: InfoCellViewModel?
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
@@ -18,6 +20,14 @@ class InfoCell : UITableViewCell, CellConfigurable {
         selectionStyle = .none
         
         guard let viewModel = data as? InfoCellViewModel else { return }
+//        self.viewModel = viewModel
+        
+//        self.viewModel?.dataChange = { [weak self] in
+//
+//            self?.titleLabel.text = self?.viewModel?.text
+//            self?.detailLabel.text = self?.viewModel?.detail
+//        }
+        
         titleLabel.text = viewModel.text
         detailLabel.text = viewModel.detail
     }

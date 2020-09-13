@@ -27,6 +27,10 @@
 		BDAAB7EF250DF30D00659B81 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDAAB7EE250DF30D00659B81 /* ImageCell.xib */; };
 		BDAAB7F1250DF98600659B81 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAAB7F0250DF98600659B81 /* CellViewModel.swift */; };
 		BDAAB7F3250E037F00659B81 /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAAB7F2250E037F00659B81 /* CellConfigurable.swift */; };
+		BDAAB7F5250E203900659B81 /* DetailButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAAB7F4250E203900659B81 /* DetailButtonCell.swift */; };
+		BDAAB7F9250E204D00659B81 /* DetailButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDAAB7F8250E204D00659B81 /* DetailButtonCell.xib */; };
+		BDAAB7FB250E2BC000659B81 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAAB7FA250E2BC000659B81 /* DetailView.swift */; };
+		BDAAB7FE250E2EDD00659B81 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDAAB7FD250E2EDD00659B81 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,10 @@
 		BDAAB7EE250DF30D00659B81 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		BDAAB7F0250DF98600659B81 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
 		BDAAB7F2250E037F00659B81 /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
+		BDAAB7F4250E203900659B81 /* DetailButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailButtonCell.swift; sourceTree = "<group>"; };
+		BDAAB7F8250E204D00659B81 /* DetailButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailButtonCell.xib; sourceTree = "<group>"; };
+		BDAAB7FA250E2BC000659B81 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		BDAAB7FD250E2EDD00659B81 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDAAB7FE250E2EDD00659B81 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +116,7 @@
 				BDAAB7B3250D6F3800659B81 /* DAIMVVMSampleTests */,
 				BDAAB7BE250D6F3800659B81 /* DAIMVVMSampleUITests */,
 				BDAAB79B250D6F3600659B81 /* Products */,
+				BDAAB7FC250E2EDD00659B81 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -178,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				BDAAB7D5250D6F6200659B81 /* MenuView.swift */,
+				BDAAB7FA250E2BC000659B81 /* DetailView.swift */,
 				BDAAB7D3250D6F6200659B81 /* Cell */,
 			);
 			path = View;
@@ -191,6 +202,8 @@
 				BDAAB7EE250DF30D00659B81 /* ImageCell.xib */,
 				BDAAB7D4250D6F6200659B81 /* InfoCell.swift */,
 				BDAAB7E1250D717D00659B81 /* InfoCell.xib */,
+				BDAAB7F4250E203900659B81 /* DetailButtonCell.swift */,
+				BDAAB7F8250E204D00659B81 /* DetailButtonCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -218,6 +231,14 @@
 				BDAAB7EA250DF24700659B81 /* UIImageView+LoadImage.swift */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		BDAAB7FC250E2EDD00659B81 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BDAAB7FD250E2EDD00659B81 /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +345,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDAAB7F9250E204D00659B81 /* DetailButtonCell.xib in Resources */,
 				BDAAB7AA250D6F3800659B81 /* LaunchScreen.storyboard in Resources */,
 				BDAAB7E2250D717D00659B81 /* InfoCell.xib in Resources */,
 				BDAAB7A7250D6F3800659B81 /* Assets.xcassets in Resources */,
@@ -363,8 +385,10 @@
 				BDAAB7DA250D6F6200659B81 /* InfoModel.swift in Sources */,
 				BDAAB7F3250E037F00659B81 /* CellConfigurable.swift in Sources */,
 				BDAAB7DC250D6F6200659B81 /* ApiWebService.swift in Sources */,
+				BDAAB7F5250E203900659B81 /* DetailButtonCell.swift in Sources */,
 				BDAAB7F1250DF98600659B81 /* CellViewModel.swift in Sources */,
 				BDAAB7DD250D6F6200659B81 /* InfoCell.swift in Sources */,
+				BDAAB7FB250E2BC000659B81 /* DetailView.swift in Sources */,
 				BDAAB7ED250DF30100659B81 /* ImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
