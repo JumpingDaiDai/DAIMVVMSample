@@ -12,7 +12,12 @@ class MenuView : UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var viewModel = MenuViewModel()
+    lazy var viewModel : MenuViewModel = {
+        
+        let viewModel = MenuViewModel()
+        viewModel.navDelegate = self
+        return viewModel
+    }()
     
     lazy var detailButtonCell: DetailButtonCell = {
         Bundle.main.loadNibNamed("\(DetailButtonCell.self)", owner: self, options: nil)?.first as? DetailButtonCell ?? DetailButtonCell()
@@ -47,20 +52,6 @@ class MenuView : UIViewController {
         tableView.register(UINib(nibName: "\(InfoCell.self)", bundle: nil), forCellReuseIdentifier: "\(InfoCell.self)")
     }
     
-    func cellIdentifier(viewModel: CellViewModel) -> String {
-        
-        if viewModel is ImageCellViewModel {
-            
-            return "\(ImageCell.self)"
-        }
-        else if viewModel is InfoCellViewModel {
-            
-            return "\(InfoCell.self)"
-        }
-        
-        return ""
-    }
-    
     func showAlert(title: String) {
         
         let alertController = UIAlertController(title: title, message: "要如何處理點擊後跳轉？", preferredStyle: .alert)
@@ -83,16 +74,16 @@ extension MenuView : UITableViewDelegate, UITableViewDataSource {
         
         // var cell
         if cellViewModel is DetailButtonCellViewModel {
-            
+
             detailButtonCell.cellConfigure(data: cellViewModel)
             detailButtonCell.buttonAction = { [weak self] in
-                self?.goToDetailView()
+                self?.viewModel.goToDetailView()
             }
             return detailButtonCell
         }
         
         // reusable cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(viewModel: cellViewModel), for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.cellIdentifier, for: indexPath)
         
         if let cell = cell as? CellConfigurable {
             cell.cellConfigure(data: cellViewModel)
@@ -118,14 +109,10 @@ extension MenuView : UITableViewDelegate, UITableViewDataSource {
 }
 
 
-// MARK: - Navigator
-extension MenuView {
+// MARK: - Navigatable
+extension MenuView: Navigatable {
     
-    func goToDetailView() {
-        
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = sb.instantiateViewController(identifier: "DetailView") as? DetailView {
-            navigationController?.pushViewController(vc, animated: true)
-        }
+    func push(to viewController: UIViewController, animated: Bool) {
+        navigationController?.pushViewController(viewController, animated: animated)
     }
 }

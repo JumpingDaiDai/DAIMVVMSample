@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 class MenuViewModel {
     
@@ -14,10 +14,13 @@ class MenuViewModel {
     
     var apiWebService = ApiWebService()
     
+    weak var navDelegate: Navigatable?
+    
     func loadData() {
         
         var viewModels = [CellViewModel]()
         
+        // call api
         let menuData = apiWebService.getData()
         
         // Image Cell View Model
@@ -38,5 +41,13 @@ class MenuViewModel {
         viewModels.append(DetailButtonCellViewModel())
         
         self.viewModels = viewModels
+    }
+    
+    func goToDetailView() {
+        
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        if let vc = sb.instantiateViewController(identifier: "DetailView") as? DetailView {
+            navDelegate?.push(to: vc, animated: true)
+        }
     }
 }

@@ -28,7 +28,8 @@ class InfoCell : UITableViewCell, CellConfigurable {
 //            self?.detailLabel.text = self?.viewModel?.detail
 //        }
         
-        titleLabel.text = viewModel.text
+        titleLabel.text = viewModel.index
+//        titleLabel.text = viewModel.text
         detailLabel.text = viewModel.detail
     }
 }

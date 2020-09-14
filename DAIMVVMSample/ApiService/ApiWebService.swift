@@ -8,9 +8,9 @@ class ApiWebService {
         let data: [String : Any] = [
             "imageUrl" : "https://www.monstersandcritics.com/wp-content/uploads/2020/07/Re-Zero-Rem-wake-up-death.jpg",
             "info" : [
-                ["title" : "本名", "detail" : "レム"],
-                ["title" : "身高", "detail" : "154cm"],
-                ["title" : "個人狀態", "detail" : "沉睡中"]
+                ["index" : 1, "title" : "本名", "detail" : "レム"],
+                ["index" : 2, "title" : "身高", "detail" : "154cm"],
+                ["index" : 3, "title" : "個人狀態", "detail" : "沉睡中"]
             ]
         ]
         

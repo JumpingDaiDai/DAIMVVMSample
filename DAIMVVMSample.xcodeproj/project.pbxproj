@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2ACF6AE250F5D17009C4D78 /* Navigatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2ACF6AD250F5D17009C4D78 /* Navigatable.swift */; };
 		BDAAB79E250D6F3600659B81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAAB79D250D6F3600659B81 /* AppDelegate.swift */; };
 		BDAAB7A0250D6F3600659B81 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDAAB79F250D6F3600659B81 /* SceneDelegate.swift */; };
 		BDAAB7A5250D6F3600659B81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDAAB7A3250D6F3600659B81 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2ACF6AD250F5D17009C4D78 /* Navigatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigatable.swift; sourceTree = "<group>"; };
 		BDAAB79A250D6F3600659B81 /* DAIMVVMSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DAIMVVMSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAAB79D250D6F3600659B81 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDAAB79F250D6F3600659B81 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2ACF6AC250F5CB4009C4D78 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				B2ACF6AD250F5D17009C4D78 /* Navigatable.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		BDAAB791250D6F3600659B81 = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +197,7 @@
 		BDAAB7D2250D6F6200659B81 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B2ACF6AC250F5CB4009C4D78 /* Base */,
 				BDAAB7D5250D6F6200659B81 /* MenuView.swift */,
 				BDAAB7FA250E2BC000659B81 /* DetailView.swift */,
 				BDAAB7D3250D6F6200659B81 /* Cell */,
@@ -385,6 +396,7 @@
 				BDAAB7DA250D6F6200659B81 /* InfoModel.swift in Sources */,
 				BDAAB7F3250E037F00659B81 /* CellConfigurable.swift in Sources */,
 				BDAAB7DC250D6F6200659B81 /* ApiWebService.swift in Sources */,
+				B2ACF6AE250F5D17009C4D78 /* Navigatable.swift in Sources */,
 				BDAAB7F5250E203900659B81 /* DetailButtonCell.swift in Sources */,
 				BDAAB7F1250DF98600659B81 /* CellViewModel.swift in Sources */,
 				BDAAB7DD250D6F6200659B81 /* InfoCell.swift in Sources */,
