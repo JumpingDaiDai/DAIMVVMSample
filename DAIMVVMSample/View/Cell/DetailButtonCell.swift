@@ -8,19 +8,15 @@
 
 import UIKit
 
-class DetailButtonCell : UITableViewCell, CellConfigurable {
+class DetailButtonCell : UITableViewCell {
     
     var viewModel: DetailButtonCellViewModel?
     
-    var buttonAction: (() -> Void)?
-    
-    func cellConfigure(data: CellViewModel) {
-        
-        guard let viewModel = data as? DetailButtonCellViewModel else { return }
-        self.viewModel = viewModel
-    }
-    
     @IBAction func buttonIsPressed(_ sender: Any) {
-        buttonAction?()
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        if let vc = sb.instantiateViewController(identifier: "DetailView") as? DetailView {
+            viewModel?.delegate?.push(to: vc, animated: true)
+        }
+        
     }
 }

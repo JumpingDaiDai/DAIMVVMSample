@@ -12,21 +12,11 @@ protocol CellViewModel {
     var cellIdentifier: String { get }
 }
 
-protocol CellViewModelPressible {
-    var cellPressed:(() -> Void)? { get set }
-}
-
-class InfoCellViewModel: CellViewModel, CellViewModelPressible {
+class InfoCellViewModel: CellViewModel {
     
-    var infoModel: InfoModel? {
-        didSet {
-//            dataChange?()
-        }
-    }
+    var infoModel: InfoModel?
     
-//    var dataChange: (() -> Void)?
-    
-    var cellPressed: (() -> Void)?
+    var delegate: MainViewDelegate?
     
     var cellIdentifier: String {
         "\(InfoCell.self)"
@@ -34,6 +24,10 @@ class InfoCellViewModel: CellViewModel, CellViewModelPressible {
     
     var index: String {
         "\((infoModel?.index ?? -1)). " + (infoModel?.title ?? "") + "："
+    }
+    
+    var title: String {
+        infoModel?.title ?? ""
     }
     
     var text: String {
@@ -44,8 +38,9 @@ class InfoCellViewModel: CellViewModel, CellViewModelPressible {
         (infoModel?.detail ?? "")
     }
     
-    init(infoModel: InfoModel) {
+    init(infoModel: InfoModel, delegate: MainViewDelegate?) {
         self.infoModel = infoModel
+        self.delegate = delegate
     }
 }
 
@@ -61,8 +56,11 @@ class ImageCellViewModel: CellViewModel {
         URL(string: imageModel.imageUrl ?? "")
     }
     
-    init(imageModel: ImageModel) {
+    var delegate: MainViewDelegate?
+    
+    init(imageModel: ImageModel, delegate: MainViewDelegate?) {
         self.imageModel = imageModel
+        self.delegate = delegate
     }
 }
 
@@ -71,4 +69,13 @@ class DetailButtonCellViewModel: CellViewModel {
     var cellIdentifier: String {
         "\(DetailButtonCell.self)"
     }
+    
+    var delegate: MainViewDelegate?
+    var cellViewModels: [CellViewModel]?
+    
+    init(delegate: MainViewDelegate?) {
+        self.delegate = delegate
+    }
+    
+    
 }

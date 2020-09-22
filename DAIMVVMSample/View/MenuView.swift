@@ -8,16 +8,13 @@
 
 import UIKit
 
-class MenuView : UIViewController {
+protocol MainViewDelegate: Navigatable, Alertable { }
+
+class MenuView : UIViewController, MainViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var viewModel : MenuViewModel = {
-        
-        let viewModel = MenuViewModel()
-        viewModel.navDelegate = self
-        return viewModel
-    }()
+    lazy var viewModel = MenuViewModel(with: self)
     
     lazy var detailButtonCell: DetailButtonCell = {
         Bundle.main.loadNibNamed("\(DetailButtonCell.self)", owner: self, options: nil)?.first as? DetailButtonCell ?? DetailButtonCell()
@@ -28,20 +25,7 @@ class MenuView : UIViewController {
         
         // regist cell
         setupTableView()
-        
-        // binding
-        viewModel.dataChange = { [weak self] in
-            self?.tableView.reloadData()
-        }
-        
-        viewModel.cellPressed = { [weak self] (viewModel: CellViewModel) in
-            DispatchQueue.main.async {
-                if let infoViewModel = viewModel as? InfoCellViewModel {
-                    self?.showAlert(title: infoViewModel.text)
-                }
-            }
-        }
-        
+
         // load api
         viewModel.loadData()
     }
@@ -52,19 +36,13 @@ class MenuView : UIViewController {
         tableView.register(UINib(nibName: "\(InfoCell.self)", bundle: nil), forCellReuseIdentifier: "\(InfoCell.self)")
     }
     
-    func showAlert(title: String) {
-        
-        let alertController = UIAlertController(title: title, message: "要如何處理點擊後跳轉？", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "確認", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
+
 }
 
 extension MenuView : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return viewModel.viewModels.count
     }
     
@@ -73,39 +51,25 @@ extension MenuView : UITableViewDelegate, UITableViewDataSource {
         let cellViewModel = viewModel.viewModels[indexPath.row]
         
         // var cell
-        if cellViewModel is DetailButtonCellViewModel {
+        if let cellViewModel = cellViewModel as? DetailButtonCellViewModel {
 
-            detailButtonCell.cellConfigure(data: cellViewModel)
-            detailButtonCell.buttonAction = { [weak self] in
-                self?.viewModel.goToDetailView()
-            }
+            detailButtonCell.viewModel = cellViewModel
             return detailButtonCell
         }
         
         // reusable cell
         let cell = tableView.dequeueReusableCell(withIdentifier: cellViewModel.cellIdentifier, for: indexPath)
-        
-        if let cell = cell as? CellConfigurable {
-            cell.cellConfigure(data: cellViewModel)
+
+        if let cell = cell as? InfoCell, let viewModel = cellViewModel as? InfoCellViewModel {
+            cell.viewModel = viewModel
         }
+        else if let cell = cell as? ImageCell, let viewModel = cellViewModel as? ImageCellViewModel {
+            cell.viewModel = viewModel
+        }
+ 
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let cellViewModel = viewModel.viewModels[indexPath.row]
-        if let viewModel = cellViewModel as? CellViewModelPressible {
-            // TODO: 這裡到底要通知 View Model，還是可以直接呼叫 View 的 shwoAlert()
-            viewModel.cellPressed?()
-//            if let infoViewModel = viewModel as? InfoCellViewModel {
-//                showAlert(title: infoViewModel.text)
-//            }
-        }
-    }
 }
 
 
@@ -114,5 +78,17 @@ extension MenuView: Navigatable {
     
     func push(to viewController: UIViewController, animated: Bool) {
         navigationController?.pushViewController(viewController, animated: animated)
+    }
+}
+
+extension MenuView: Alertable {
+    
+    func showAlert(title: String) {
+        
+        let alertController = UIAlertController(title: title, message: "要如何處理點擊後跳轉？", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確認", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
