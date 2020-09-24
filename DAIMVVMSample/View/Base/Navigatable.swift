@@ -12,3 +12,8 @@ protocol Navigatable: UIViewController {
     
     func push(to viewController: UIViewController, animated: Bool)
 }
+
+protocol Alertable: UIViewController {
+    
+    func showAlert(title: String)
+}

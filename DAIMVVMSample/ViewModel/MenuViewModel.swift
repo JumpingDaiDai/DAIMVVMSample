@@ -2,19 +2,17 @@ import UIKit
 
 class MenuViewModel {
     
-    var viewModels = [CellViewModel]() {
-        didSet {
-            dataChange?()
-        }
-    }
+    var viewModels = [CellViewModel]() 
     
     var dataChange: (() -> Void)?
     
-    var cellPressed: ((CellViewModel) -> Void)?
-    
     var apiWebService = ApiWebService()
     
-    weak var navDelegate: Navigatable?
+    weak var delegate: MainViewDelegate?
+    
+    init(with delegate: MainViewDelegate?) {
+        self.delegate = delegate
+    }
     
     func loadData() {
         
@@ -24,21 +22,17 @@ class MenuViewModel {
         let menuData = apiWebService.getData()
         
         // Image Cell View Model
-        viewModels.append(ImageCellViewModel(imageModel: menuData.imageModel))
+        viewModels.append(ImageCellViewModel(imageModel: menuData.imageModel, delegate: delegate))
         
         // Info Cell View Model
         for infoModel in menuData.infoListModel.infoList {
             
-            let infoViewModel = InfoCellViewModel(infoModel: infoModel)
-            infoViewModel.cellPressed = { [weak self] in
-                
-                self?.cellPressed?(infoViewModel)
-            }
+            let infoViewModel = InfoCellViewModel(infoModel: infoModel, delegate: delegate)
             viewModels.append(infoViewModel)
         }
         
         // Detail Button View Model
-        viewModels.append(DetailButtonCellViewModel())
+        viewModels.append(DetailButtonCellViewModel(delegate: delegate))
         
         self.viewModels = viewModels
     }
@@ -47,7 +41,7 @@ class MenuViewModel {
         
         let sb = UIStoryboard(name: "Main", bundle: nil)
         if let vc = sb.instantiateViewController(identifier: "DetailView") as? DetailView {
-            navDelegate?.push(to: vc, animated: true)
+            delegate?.push(to: vc, animated: true)
         }
     }
 }

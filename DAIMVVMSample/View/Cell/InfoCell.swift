@@ -8,28 +8,29 @@
 
 import UIKit
 
-class InfoCell : UITableViewCell, CellConfigurable {
-    
-//    var viewModel: InfoCellViewModel?
+class InfoCell : UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
-    func cellConfigure(data: CellViewModel) {
-        
-        selectionStyle = .none
-        
-        guard let viewModel = data as? InfoCellViewModel else { return }
-//        self.viewModel = viewModel
-        
-//        self.viewModel?.dataChange = { [weak self] in
-//
-//            self?.titleLabel.text = self?.viewModel?.text
-//            self?.detailLabel.text = self?.viewModel?.detail
-//        }
-        
-        titleLabel.text = viewModel.index
-//        titleLabel.text = viewModel.text
-        detailLabel.text = viewModel.detail
+    var viewModel: InfoCellViewModel? {
+        didSet {
+            selectionStyle = .none
+            
+            titleLabel.text = viewModel?.index
+            detailLabel.text = viewModel?.detail
+            self.addTapGstureRecognice(to: self)
+        }
+    }
+    
+    func addTapGstureRecognice(to view: UIView) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapped))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func tapped() {
+        viewModel?.delegate?.showAlert(title: titleLabel.text ?? "本名")
     }
 }
+
+

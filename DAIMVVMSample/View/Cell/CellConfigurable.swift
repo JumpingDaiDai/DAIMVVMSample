@@ -8,7 +8,3 @@
 
 import Foundation
 
-protocol CellConfigurable {
-    
-    func cellConfigure(data: CellViewModel)
-}
