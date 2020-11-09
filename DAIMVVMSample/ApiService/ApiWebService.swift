@@ -2,21 +2,48 @@ import Foundation
 
 class ApiWebService {
     
-    func getData() -> (imageModel: ImageModel, infoListModel: InfoListModel) {
+    class func getDetailById(id: String, handler: ((ImageModel?, InfoListModel?) -> ())?) {
         
-        // test data
-        let data: [String : Any] = [
-            "imageUrl" : "https://www.monstersandcritics.com/wp-content/uploads/2020/07/Re-Zero-Rem-wake-up-death.jpg",
-            "info" : [
-                ["index" : 1, "title" : "本名", "detail" : "レム"],
-                ["index" : 2, "title" : "身高", "detail" : "154cm"],
-                ["index" : 3, "title" : "個人狀態", "detail" : "沉睡中"]
-            ]
-        ]
+        if let characterList = readPlist(fileName: "CharacterDetailList") {
+            
+            var imageModel: ImageModel?
+            var infoListModel: InfoListModel?
+            for character in characterList {
+                
+                if id == character["id"] {
+                    
+                    imageModel = ImageModel(dict: character)
+                    infoListModel = InfoListModel(dict: character)
+                }
+            }
+            
+            handler?(imageModel, infoListModel)
+        }
+        else {
+            handler?(nil, nil)
+        }
+    }
+    
+    class func getCharacterList(handler: (([CharacterModel]) -> ())?) {
         
-        let imageModel = ImageModel(dict: data)
-        let infoListModel = InfoListModel(dict: data)
+        var characters = [CharacterModel]()
         
-        return (imageModel, infoListModel)
+        if let characterList = readPlist(fileName: "CharacterList") {
+            
+            characters = CharacterListModel(array: characterList).characterList
+        }
+
+        handler?(characters)
+    }
+    
+    class func readPlist(fileName: String) -> [[String: String]]? {
+        
+        guard let path = Bundle.main.path(forResource: fileName, ofType: "plist") else { return nil }
+        let url = URL(fileURLWithPath: path)
+        let data = try! Data(contentsOf: url)
+        guard let plist = try! PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? [[String: String]] else { return nil }
+        print(plist)
+        
+        return plist
     }
 }

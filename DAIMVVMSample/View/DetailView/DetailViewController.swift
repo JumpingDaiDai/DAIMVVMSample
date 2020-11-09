@@ -1,5 +1,5 @@
 //
-//  MenuView.swift
+//  DetailViewController.swift
 //  DAIMVVMSample
 //
 //  Created by Jason_Chung on 2020/9/13.
@@ -8,16 +8,19 @@
 
 import UIKit
 
-protocol MainViewDelegate: Navigatable, Alertable { }
+protocol DetailViewDelegate: Navigatable, Alertable { }
 
-class MenuView : UIViewController, MainViewDelegate {
+class DetailViewController: UIViewController, DetailViewDelegate {
+    
+    var activityDatas = [ActivityInfo]
+    var kvDatas = [KvDatas]
     
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var viewModel = MenuViewModel(with: self)
+    lazy var viewModel = DetailViewModel(with: self)
     
-    lazy var detailButtonCell: DetailButtonCell = {
-        Bundle.main.loadNibNamed("\(DetailButtonCell.self)", owner: self, options: nil)?.first as? DetailButtonCell ?? DetailButtonCell()
+    lazy var otherInfoButtonCell: OtherInfoButtonCell = {
+        Bundle.main.loadNibNamed("\(OtherInfoButtonCell.self)", owner: self, options: nil)?.first as? OtherInfoButtonCell ?? OtherInfoButtonCell()
     }()
     
     override func viewDidLoad() {
@@ -39,22 +42,44 @@ class MenuView : UIViewController, MainViewDelegate {
 
 }
 
-extension MenuView : UITableViewDelegate, UITableViewDataSource {
+extension DetailViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    // in cell
+    func configure(vm: ViewModel) {
+        self.viewModel = vm
+        // binding VM
+        self.viewModel.dataChange = {
+            // Data更新
+            
+            name = self.viewModel.displayName
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return viewModel.viewModels.count
+        return viewModel.cellViewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellViewModel = viewModel.viewModels[indexPath.row]
+        /*
+         new Cell
+         new viewModel
+         VCViewModel.dataChange = {
+            viewModel.data =
+         }
+         cell.configure(vm: viewModel)
+         */
+        
+        
+        let cellViewModel = viewModel.cellViewModels[indexPath.row]
         
         // var cell
-        if let cellViewModel = cellViewModel as? DetailButtonCellViewModel {
+        if let cellViewModel = cellViewModel as? OtherInfoButtonCellViewModel {
 
-            detailButtonCell.viewModel = cellViewModel
-            return detailButtonCell
+            otherInfoButtonCell.viewModel = cellViewModel
+            return otherInfoButtonCell
         }
         
         // reusable cell
@@ -69,19 +94,18 @@ extension MenuView : UITableViewDelegate, UITableViewDataSource {
  
         return cell
     }
-    
 }
 
 
 // MARK: - Navigatable
-extension MenuView: Navigatable {
+extension DetailViewController: Navigatable {
     
     func push(to viewController: UIViewController, animated: Bool) {
         navigationController?.pushViewController(viewController, animated: animated)
     }
 }
 
-extension MenuView: Alertable {
+extension DetailViewController: Alertable {
     
     func showAlert(title: String) {
         

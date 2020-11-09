@@ -1,5 +1,5 @@
 //
-//  CellViewModel.swift
+//  DetailCellViewModel.swift
 //  DAIMVVMSample
 //
 //  Created by Jason_Chung on 2020/9/13.
@@ -8,15 +8,11 @@
 
 import Foundation
 
-protocol CellViewModel {
-    var cellIdentifier: String { get }
-}
-
 class InfoCellViewModel: CellViewModel {
     
     var infoModel: InfoModel?
     
-    var delegate: MainViewDelegate?
+    var delegate: DetailViewDelegate?
     
     var cellIdentifier: String {
         "\(InfoCell.self)"
@@ -38,7 +34,7 @@ class InfoCellViewModel: CellViewModel {
         (infoModel?.detail ?? "")
     }
     
-    init(infoModel: InfoModel, delegate: MainViewDelegate?) {
+    init(infoModel: InfoModel, delegate: DetailViewDelegate?) {
         self.infoModel = infoModel
         self.delegate = delegate
     }
@@ -56,26 +52,24 @@ class ImageCellViewModel: CellViewModel {
         URL(string: imageModel.imageUrl ?? "")
     }
     
-    var delegate: MainViewDelegate?
+    var delegate: DetailViewDelegate?
     
-    init(imageModel: ImageModel, delegate: MainViewDelegate?) {
+    init(imageModel: ImageModel, delegate: DetailViewDelegate?) {
         self.imageModel = imageModel
         self.delegate = delegate
     }
 }
 
-class DetailButtonCellViewModel: CellViewModel {
+class OtherInfoButtonCellViewModel: CellViewModel {
     
     var cellIdentifier: String {
-        "\(DetailButtonCell.self)"
+        "\(OtherInfoButtonCell.self)"
     }
     
-    var delegate: MainViewDelegate?
+    var delegate: DetailViewDelegate?
     var cellViewModels: [CellViewModel]?
     
-    init(delegate: MainViewDelegate?) {
+    init(delegate: DetailViewDelegate?) {
         self.delegate = delegate
     }
-    
-    
 }
