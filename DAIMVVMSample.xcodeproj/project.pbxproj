@@ -201,7 +201,7 @@
 				BDAAB7E9250DF21E00659B81 /* Category */,
 				BDAAB7D0250D6F6200659B81 /* ApiService */,
 				BDAAB7CD250D6F6200659B81 /* Model */,
-				BDAAB7D2250D6F6200659B81 /* View */,
+				BDAAB7D2250D6F6200659B81 /* View+ViewModel */,
 				BDAAB79D250D6F3600659B81 /* AppDelegate.swift */,
 				BDAAB79F250D6F3600659B81 /* SceneDelegate.swift */,
 				BDAAB7A3250D6F3600659B81 /* Main.storyboard */,
@@ -250,7 +250,7 @@
 			path = ApiService;
 			sourceTree = "<group>";
 		};
-		BDAAB7D2250D6F6200659B81 /* View */ = {
+		BDAAB7D2250D6F6200659B81 /* View+ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				B2ACF6AC250F5CB4009C4D78 /* Base */,
@@ -258,7 +258,7 @@
 				B2001C822547F62400EA1824 /* DetailView */,
 				B2001C832547F63600EA1824 /* OtherInfoView */,
 			);
-			path = View;
+			path = "View+ViewModel";
 			sourceTree = "<group>";
 		};
 		BDAAB7D3250D6F6200659B81 /* Cell */ = {
